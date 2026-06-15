@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise Defensive Security Toolkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -19,10 +20,11 @@
         }
         
         .header {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             padding: 20px;
             border-bottom: 2px solid #00ff00;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
         
         .header h1 {
@@ -34,8 +36,14 @@
             gap: 10px;
         }
         
+        .header-info {
+            color: #b0b0b0;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -48,12 +56,13 @@
         }
         
         .card {
-            background: rgba(45, 45, 68, 0.9);
+            background: rgba(45, 45, 68, 0.95);
             border: 1px solid #00ff00;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
         }
         
         .card:hover {
@@ -67,6 +76,13 @@
             margin-bottom: 15px;
             border-bottom: 1px solid #00ff00;
             padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card.full-width {
+            grid-column: 1 / -1;
         }
         
         .metric {
@@ -116,6 +132,50 @@
             color: white;
         }
         
+        .status-safe {
+            background-color: #00aa00;
+            color: white;
+        }
+        
+        .status-medium {
+            background-color: #ffaa00;
+            color: #1e1e2e;
+        }
+        
+        .status-high {
+            background-color: #ff6600;
+            color: white;
+        }
+        
+        /* Scanner Form Styles */
+        .scanner-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .scanner-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00ff00;
+            border-radius: 4px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .scanner-form input::placeholder {
+            color: #666;
+        }
+        
+        .scanner-form input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
         .alerts-list {
             max-height: 400px;
             overflow-y: auto;
@@ -140,6 +200,97 @@
             background: rgba(255, 170, 0, 0.1);
         }
         
+        /* Attacker IP Styles */
+        .attacker-ip-item {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff0000;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .attacker-ip-item:hover {
+            background: rgba(255, 0, 0, 0.15);
+        }
+        
+        .attacker-ip-item .ip-address {
+            color: #ff6666;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .attacker-ip-item .attack-details {
+            color: #e0e0e0;
+            font-size: 12px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+        }
+        
+        /* Scan Result Styles */
+        .scan-result {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #00ff00;
+        }
+        
+        .scan-result.critical {
+            border-left-color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+        }
+        
+        .scan-result.high {
+            border-left-color: #ff6600;
+            background: rgba(255, 102, 0, 0.05);
+        }
+        
+        .scan-result.medium {
+            border-left-color: #ffaa00;
+            background: rgba(255, 170, 0, 0.05);
+        }
+        
+        .scan-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .scan-result-url {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .scan-result-threat {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .vulnerabilities-list {
+            margin-top: 10px;
+        }
+        
+        .vulnerability-item {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #ff0000;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
         .button {
             background: #00ff00;
             color: #1e1e2e;
@@ -156,6 +307,12 @@
             background: #00cc00;
         }
         
+        .button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
         .button.secondary {
             background: #666;
             color: #fff;
@@ -165,28 +322,283 @@
             background: #777;
         }
         
+        .button.danger {
+            background: #ff0000;
+            color: #fff;
+        }
+        
+        .button.danger:hover {
+            background: #cc0000;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #666;
+            border-top: 3px solid #00ff00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00ff00;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            background: transparent;
+            color: #b0b0b0;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .tab-button.active {
+            color: #00ff00;
+            border-bottom-color: #00ff00;
+        }
+        
+        .tab-button:hover {
+            color: #00ff00;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Detailed Attack Analysis */
+        .attack-analysis {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .analysis-section {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+        }
+        
+        .analysis-section:last-child {
+            border-bottom: none;
+        }
+        
+        .analysis-title {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.05);
+        }
+        
+        .info-label {
+            color: #b0b0b0;
+        }
+        
+        .info-value {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             margin-top: 40px;
             color: #666;
             border-top: 1px solid #444;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer-developer {
+            margin-top: 15px;
+            color: #00ff00;
+            font-size: 13px;
+        }
+        
+        .developer-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .developer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #00ff00;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .developer-link:hover {
+            color: #00ff00;
+            text-decoration: underline;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: #00ff00;
+            color: #1e1e2e;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .notification.error {
+            background: #ff0000;
+            color: white;
+        }
+        
+        .notification.warning {
+            background: #ffaa00;
+            color: #1e1e2e;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .threat-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        .threat-indicator.critical {
+            background: #ff0000;
+        }
+        
+        .threat-indicator.high {
+            background: #ff6600;
+        }
+        
+        .threat-indicator.medium {
+            background: #ffaa00;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🛡️ Enterprise Defensive Security Toolkit</h1>
+        <div class="header-info">Advanced Web Security Monitoring & Attack Detection System</div>
     </div>
     
     <div class="container">
+        <!-- Web URL Scanner Section -->
+        <div class="card full-width">
+            <h2><i class="fas fa-search"></i> Web URL Scanner & Attack Detection</h2>
+            <p style="color: #b0b0b0; margin-bottom: 15px; font-size: 12px;">
+                🔍 Scan your web hosting and URLs to detect attacks, vulnerabilities, and identify attacker IP addresses in real-time
+            </p>
+            
+            <div class="scanner-form">
+                <input 
+                    type="text" 
+                    id="url-input" 
+                    placeholder="Enter URL (e.g., https://example.com or http://yourwebhost.com)"
+                    value=""
+                />
+                <button class="button" onclick="startScan()" id="scan-button">🚀 Scan URL</button>
+            </div>
+            
+            <div id="scan-progress" style="display: none; margin-bottom: 15px; padding: 15px; background: rgba(0,255,0,0.1); border-radius: 4px; border: 1px solid #00ff00;">
+                <span class="loading"></span>
+                <span style="margin-left: 10px; color: #00ff00;">⏳ Scanning URL... This may take a moment...</span>
+            </div>
+        </div>
+        
+        <!-- Tabs for Scanner Results -->
+        <div class="card full-width" id="scanner-results" style="display: none; margin-top: 20px;">
+            <h2><i class="fas fa-chart-bar"></i> Scan Results & Detailed Analysis</h2>
+            
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('summary')">📊 Summary</button>
+                <button class="tab-button" onclick="switchTab('vulnerabilities')">⚠️ Vulnerabilities</button>
+                <button class="tab-button" onclick="switchTab('attackers')">🚨 Attacker IPs</button>
+                <button class="tab-button" onclick="switchTab('server-info')">🖥️ Server Info</button>
+                <button class="tab-button" onclick="switchTab('security-headers')">🔒 Security</button>
+            </div>
+            
+            <!-- Summary Tab -->
+            <div id="summary" class="tab-content active">
+                <div id="summary-content"></div>
+            </div>
+            
+            <!-- Vulnerabilities Tab -->
+            <div id="vulnerabilities" class="tab-content">
+                <div id="vulnerabilities-content"></div>
+            </div>
+            
+            <!-- Attacker IPs Tab -->
+            <div id="attackers" class="tab-content">
+                <div id="attackers-content"></div>
+            </div>
+            
+            <!-- Server Info Tab -->
+            <div id="server-info" class="tab-content">
+                <div id="server-info-content"></div>
+            </div>
+            
+            <!-- Security Headers Tab -->
+            <div id="security-headers" class="tab-content">
+                <div id="security-headers-content"></div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
         <div class="dashboard-grid">
             <!-- System Status Card -->
             <div class="card">
-                <h2>System Status</h2>
+                <h2><i class="fas fa-tachometer-alt"></i> System Status</h2>
                 <div class="metric">
                     <span class="metric-label">Status</span>
-                    <span class="status-badge status-ok">RUNNING</span>
+                    <span class="status-badge status-ok">✅ RUNNING</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">CPU Usage</span>
@@ -204,17 +616,17 @@
             
             <!-- Security Alerts Card -->
             <div class="card">
-                <h2>Security Alerts</h2>
+                <h2><i class="fas fa-bell"></i> Security Alerts</h2>
                 <div class="metric">
                     <span class="metric-label">Total Alerts</span>
                     <span class="metric-value" id="total-alerts">0</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Critical</span>
+                    <span class="metric-label">🔴 Critical</span>
                     <span class="metric-value" id="critical-alerts">0</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Warnings</span>
+                    <span class="metric-label">🟠 Warnings</span>
                     <span class="metric-value" id="warning-alerts">0</span>
                 </div>
                 <button class="button secondary">View All Alerts</button>
@@ -222,7 +634,7 @@
             
             <!-- Threat Intelligence Card -->
             <div class="card">
-                <h2>Threat Intelligence</h2>
+                <h2><i class="fas fa-shield-alt"></i> Threat Intelligence</h2>
                 <div class="metric">
                     <span class="metric-label">Malicious IPs</span>
                     <span class="metric-value" id="malicious-ips">--</span>
@@ -238,23 +650,281 @@
                 <button class="button secondary">Update Feeds</button>
             </div>
         </div>
-        
-        <!-- Recent Alerts Section -->
-        <div class="card" style="margin-top: 20px;">
-            <h2>Recent Alerts</h2>
-            <div class="alerts-list" id="recent-alerts">
-                <div style="text-align: center; color: #666; padding: 20px;">
-                    Loading alerts...
-                </div>
-            </div>
-        </div>
     </div>
     
     <footer>
-        <p>&copy; 2024 Enterprise Defensive Security Toolkit - Defend Your Company with Confidence</p>
+        <p>&copy; 2024 Enterprise Defensive Security Toolkit</p>
+        <p style="color: #00ff00; margin-top: 10px;">Defending Your Company Against Cyber Threats</p>
+        
+        <div class="footer-developer">
+            <div style="margin: 15px 0;">👨‍💻 Developed by: White Hat - PinoyUnknown</div>
+            <div class="developer-links">
+                <a href="https://github.com/PinoyUnknown" target="_blank" class="developer-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://instagram.com/pinoyunknown" target="_blank" class="developer-link">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
     </footer>
     
     <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Scan URL function
+        async function startScan() {
+            const url = document.getElementById('url-input').value.trim();
+            
+            if (!url) {
+                showNotification('Please enter a URL', 'error');
+                return;
+            }
+            
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                showNotification('Please enter a valid URL (starting with http:// or https://)', 'error');
+                return;
+            }
+            
+            // Show progress
+            document.getElementById('scan-progress').style.display = 'block';
+            document.getElementById('scan-button').disabled = true;
+            document.getElementById('scanner-results').style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/scan-url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'completed' || result.status === 'error') {
+                    document.getElementById('scan-progress').style.display = 'none';
+                    document.getElementById('scan-button').disabled = false;
+                    
+                    if (result.status === 'completed') {
+                        displayScanResults(result);
+                        showNotification('✅ Scan completed!', 'success');
+                    } else {
+                        showNotification(`❌ Error: ${result.message}`, 'error');
+                    }
+                }
+            } catch (error) {
+                document.getElementById('scan-progress').style.display = 'none';
+                document.getElementById('scan-button').disabled = false;
+                showNotification(`❌ Scan error: ${error.message}`, 'error');
+                console.error('Scan error:', error);
+            }
+        }
+        
+        // Display scan results
+        function displayScanResults(result) {
+            document.getElementById('scanner-results').style.display = 'block';
+            
+            // Summary
+            const threatBadgeClass = result.threat_level.toLowerCase();
+            let threatIcon = '🟢';
+            if (result.threat_level === 'CRITICAL') threatIcon = '🔴';
+            else if (result.threat_level === 'HIGH') threatIcon = '🟠';
+            else if (result.threat_level === 'MEDIUM') threatIcon = '🟡';
+            
+            let summaryHTML = `
+                <div class="scan-result ${threatBadgeClass}">
+                    <div class="scan-result-header">
+                        <div class="scan-result-url">${result.url}</div>
+                        <div class="status-badge status-${threatBadgeClass}">${threatIcon} ${result.threat_level}</div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 12px;">
+                        <div class="metric"><span>📅 Scan Time:</span><span>${result.timestamp}</span></div>
+                        <div class="metric"><span>⏱️ Duration:</span><span>${result.scan_duration_ms}ms</span></div>
+                        <div class="metric"><span>🐛 Vulnerabilities:</span><span style="color: #ff6666;">${result.vulnerabilities.length}</span></div>
+                        <div class="metric"><span>⚠️ Issues Detected:</span><span style="color: #ffaa00;">${result.attacks_detected.length}</span></div>
+                    </div>
+                </div>
+            `;
+            
+            // Server Info
+            if (result.server_info && result.server_info.ip_address) {
+                summaryHTML += `
+                    <div style="margin-top: 15px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; border-left: 3px solid #00ff00;">
+                        <div class="analysis-title">🖥️ Server Information</div>
+                        <div class="info-row">
+                            <span class="info-label">🌐 Server IP:</span>
+                            <span class="info-value">${result.server_info.ip_address}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">📍 Hostname:</span>
+                            <span class="info-value">${result.server_info.hostname}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">🔌 Protocol:</span>
+                            <span class="info-value">${result.server_info.protocol}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // SSL Status
+            if (result.ssl_status) {
+                const sslBg = result.ssl_status.valid ? 'rgba(0,170,0,0.1)' : 'rgba(255,0,0,0.1)';
+                const sslColor = result.ssl_status.valid ? '#00ff00' : '#ff6666';
+                const sslIcon = result.ssl_status.valid ? '🔒' : '🔓';
+                summaryHTML += `
+                    <div style="margin-top: 10px; background: ${sslBg}; padding: 10px; border-radius: 4px; border-left: 3px solid ${sslColor};">
+                        <div style="color: ${sslColor}; font-weight: bold;">${sslIcon} ${result.ssl_status.message}</div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('summary-content').innerHTML = summaryHTML;
+            
+            // Vulnerabilities
+            let vulnHTML = '';
+            if (result.vulnerabilities.length === 0) {
+                vulnHTML = '<div style="color: #00ff00; padding: 20px; text-align: center; border: 1px solid #00ff00; border-radius: 4px;">✅ No vulnerabilities detected</div>';
+            } else {
+                vulnHTML = `<div style="margin-bottom: 20px; color: #ff6666; font-weight: bold;">⚠️ ${result.vulnerabilities.length} vulnerabilities found:</div>`;
+                result.vulnerabilities.forEach(vuln => {
+                    const vulnIcon = vuln.severity === 'CRITICAL' ? '🔴' : '🟠';
+                    vulnHTML += `
+                        <div class="vulnerability-item">
+                            <div style="color: #ff6666; font-weight: bold;">${vulnIcon} [${vuln.severity}] ${vuln.type}</div>
+                            <div style="color: #e0e0e0; margin-top: 5px;">${vuln.description}</div>
+                            <div style="color: #b0b0b0; margin-top: 5px; font-size: 11px;">Pattern: ${vuln.pattern_matched}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('vulnerabilities-content').innerHTML = vulnHTML;
+            
+            // Attacker IPs
+            let attackerHTML = '';
+            if (result.attacker_ips.length === 0) {
+                attackerHTML = '<div style="color: #00ff00; padding: 20px; text-align: center; border: 1px solid #00ff00; border-radius: 4px;">✅ No attacker IPs detected</div>';
+            } else {
+                attackerHTML = `<div style="margin-bottom: 20px; color: #ff6666; font-weight: bold;">🚨 ${result.attacker_ips.length} attacker IP(s) detected:</div>`;
+                result.attacker_ips.forEach(attacker => {
+                    const maliciousIcon = attacker.is_malicious ? '🔴 HIGH RISK' : '🟢 LOW RISK';
+                    const maliciousColor = attacker.is_malicious ? '#ff6666' : '#00ff00';
+                    attackerHTML += `
+                        <div class="attacker-ip-item">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                <div class="ip-address">🔍 ${attacker.ip_address}</div>
+                                <span style="color: ${maliciousColor}; font-weight: bold; font-size: 12px;">${maliciousIcon}</span>
+                            </div>
+                            <div class="attack-details">
+                                <div class="info-row">
+                                    <span class="info-label">📍 Hostname:</span>
+                                    <span class="info-value">${attacker.hostname}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">🎯 Attack Type:</span>
+                                    <span class="info-value">Potential Server Probe</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">⏰ Last Seen:</span>
+                                    <span class="info-value">${attacker.last_seen}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">⚠️ Threat Level:</span>
+                                    <span class="info-value" style="color: ${maliciousColor};">${maliciousIcon}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('attackers-content').innerHTML = attackerHTML;
+            
+            // Server Info
+            let serverHTML = '<div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px;">';
+            if (result.server_info) {
+                serverHTML += `
+                    <div class="analysis-section">
+                        <div class="analysis-title">🌐 Server Details</div>
+                        <div class="info-row">
+                            <span class="info-label">Server IP Address:</span>
+                            <span class="info-value">${result.server_info.ip_address}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Hostname:</span>
+                            <span class="info-value">${result.server_info.hostname}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Protocol:</span>
+                            <span class="info-value">${result.server_info.protocol}</span>
+                        </div>
+                    </div>
+                    <div class="analysis-section">
+                        <div class="analysis-title">🔌 Open Ports Detected</div>
+                `;
+                if (result.server_info.ports) {
+                    for (const [port, isOpen] of Object.entries(result.server_info.ports)) {
+                        const portColor = isOpen ? '#ff6666' : '#00ff00';
+                        const portIcon = isOpen ? '🟴' : '🟢';
+                        serverHTML += `<div class="info-row"><span class="info-label">${portIcon} ${port}:</span><span class="info-value" style="color: ${portColor};">${isOpen ? 'OPEN' : 'CLOSED'}</span></div>`;
+                    }
+                }
+                serverHTML += '</div></div>';
+            }
+            document.getElementById('server-info-content').innerHTML = serverHTML;
+            
+            // Security Headers
+            let securityHTML = '<div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px;">';
+            if (result.attacks_detected.length === 0) {
+                securityHTML += '<div style="color: #00ff00; padding: 20px; text-align: center; border: 1px solid #00ff00; border-radius: 4px;">✅ No security header issues detected</div>';
+            } else {
+                securityHTML += '<div class="analysis-title" style="margin-bottom: 15px;">🔐 Security Header Analysis</div>';
+                result.attacks_detected.forEach(issue => {
+                    const severityIcon = issue.severity === 'CRITICAL' ? '🔴' : issue.severity === 'MEDIUM' ? '🟡' : '🟢';
+                    securityHTML += `
+                        <div class="analysis-section">
+                            <div style="color: #ffaa00; font-weight: bold; margin-bottom: 8px;">${severityIcon} [${issue.severity}] ${issue.type}</div>
+                            <div class="info-row" style="border: none;">
+                                <span class="info-label">Issue:</span>
+                                <span class="info-value">${issue.description}</span>
+                            </div>
+                            <div class="info-row" style="border: none;">
+                                <span class="info-label">Recommendation:</span>
+                                <span class="info-value">${issue.recommendation}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            securityHTML += '</div>';
+            document.getElementById('security-headers-content').innerHTML = securityHTML;
+        }
+        
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
         // Refresh dashboard every 5 seconds
         setInterval(updateDashboard, 5000);
         

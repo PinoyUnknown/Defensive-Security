@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
 Enterprise Defensive Security Toolkit - Main Entry Point
-Cross-platform defensive security solution with web dashboard
+Cross-platform defensive security solution with web dashboard and vulnerability scanner
+
+Developed by: White Hat - PinoyUnknown
+GitHub: https://github.com/PinoyUnknown
+Instagram: https://instagram.com/pinoyunknown
 """
 
 import sys
@@ -23,13 +27,22 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Developer Information
+DEVELOPER_INFO = {
+    'name': 'White Hat - PinoyUnknown',
+    'github': 'https://github.com/PinoyUnknown',
+    'instagram': 'https://instagram.com/pinoyunknown',
+    'version': '1.0.0',
+    'description': 'Enterprise Defensive Security Toolkit'
+}
+
 class ToolkitManager:
     """Main toolkit manager for controlling all components"""
     
     def __init__(self):
         self.running = False
         self.components = {}
-        logger.info(f"Initializing Enterprise Defensive Security Toolkit on {PLATFORM}")
+        logger.info(f"Initializing {DEVELOPER_INFO['description']} on {PLATFORM}")
     
     def start(self):
         """Start all toolkit components"""
@@ -41,6 +54,7 @@ class ToolkitManager:
             from core.log_analyzer import LogAnalyzer
             from core.threat_intelligence import ThreatIntelligence
             from core.alert_engine import AlertEngine
+            from core.web_vulnerability_scanner import WebVulnerabilityScanner
             from web.app import create_app
             
             # Initialize components
@@ -56,7 +70,10 @@ class ToolkitManager:
             logger.info("Initializing Alert Engine...")
             self.components['alert_engine'] = AlertEngine()
             
-            # Start monitoring
+            logger.info("Initializing Web Vulnerability Scanner...")
+            self.components['web_vulnerability_scanner'] = WebVulnerabilityScanner()
+            
+            # Start monitoring components
             for name, component in self.components.items():
                 if hasattr(component, 'start'):
                     logger.info(f"Starting {name}...")
@@ -66,11 +83,26 @@ class ToolkitManager:
             logger.info("Starting Web Dashboard...")
             app = create_app(self.components)
             
-            logger.info("="*60)
-            logger.info("Enterprise Defensive Security Toolkit Started")
-            logger.info("Web Dashboard: http://localhost:8080")
-            logger.info("Default credentials: admin / admin123")
-            logger.info("="*60)
+            logger.info("="*70)
+            logger.info(f"{DEVELOPER_INFO['description']} v{DEVELOPER_INFO['version']}")
+            logger.info("="*70)
+            logger.info("Enterprise Defensive Security Toolkit Started Successfully!")
+            logger.info("")
+            logger.info("🌐 Web Dashboard: http://localhost:8080")
+            logger.info("👤 Default Login: admin / admin123")
+            logger.info("")
+            logger.info("✅ Active Features:")
+            logger.info("   • System & Process Monitoring")
+            logger.info("   • Log Analysis & Threat Detection")
+            logger.info("   • Web URL Scanning & Vulnerability Detection")
+            logger.info("   • Attacker IP Tracking & Identification")
+            logger.info("   • Real-time Alerts & Notifications")
+            logger.info("   • Threat Intelligence Integration")
+            logger.info("")
+            logger.info("👨‍💻 Developed by: White Hat - PinoyUnknown")
+            logger.info(f"   GitHub: {DEVELOPER_INFO['github']}")
+            logger.info(f"   Instagram: {DEVELOPER_INFO['instagram']}")
+            logger.info("="*70)
             
             self.running = True
             app.run(host='0.0.0.0', port=8080, debug=False, threaded=True)
@@ -96,21 +128,25 @@ class ToolkitManager:
     
     def status(self):
         """Display toolkit status"""
-        logger.info("Enterprise Defensive Security Toolkit Status")
+        logger.info(f"{DEVELOPER_INFO['description']} - Status Report")
+        logger.info(f"Version: {DEVELOPER_INFO['version']}")
         logger.info(f"Platform: {PLATFORM}")
         logger.info(f"Running: {self.running}")
-        logger.info("Components:")
+        logger.info("\nActive Components:")
         
         for name, component in self.components.items():
-            status = "Running" if self.running else "Stopped"
-            logger.info(f"  - {name}: {status}")
+            status = "✅ Running" if self.running else "⛔ Stopped"
+            logger.info(f"  {status} - {name}")
 
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(
-        description='Enterprise Defensive Security Toolkit',
+        description=f"{DEVELOPER_INFO['description']} v{DEVELOPER_INFO['version']}",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='''
+        epilog=f'''\nDeveloped by: White Hat - PinoyUnknown
+GitHub: {DEVELOPER_INFO['github']}
+Instagram: {DEVELOPER_INFO['instagram']}
+
 Examples:
   python main.py start              # Start all components
   python main.py stop               # Stop all components
@@ -148,5 +184,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        logger.info("\nShutting down...")
+        logger.info("\n\n🛑 Shutting down...")
         sys.exit(0)
