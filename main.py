@@ -10,12 +10,23 @@ Instagram: https://instagram.com/pinoyunknown
 
 import sys
 import os
+import urllib3
 import argparse
 import logging
 import subprocess
 import json
 from pathlib import Path
 from datetime import datetime
+
+
+
+# url lib
+urllib3.request(
+    "GET",
+    "https://www.google.com/",
+    headers={"Accept-Encoding": "br"}
+)
+
 
 # Platform detection
 PLATFORM = sys.platform
