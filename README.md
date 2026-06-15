@@ -2,8 +2,6 @@
 
 **A Powerful, Cross-Platform, Robust Defensive Security Solution**
 
-<img width="1920" height="1080" alt="Screenshot_20260615_143956" src="https://github.com/user-attachments/assets/7dbe5a0d-d747-46c8-bd5a-3fef3480f880" />
-
 
 Version 2
 <img width="1920" height="1080" alt="Screenshot_20260615_160446" src="https://github.com/user-attachments/assets/48262730-ce5c-4ae2-906d-62c555478b9e" />
