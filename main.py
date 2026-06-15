@@ -141,7 +141,7 @@ class ToolkitManager:
         logger.info("\nActive Components:")
         
         for name, component in self.components.items():
-            status = "✅ Running" if self.running else "⛔ Stopped"
+            status = "✅ Running" if self.running else "🛑 Stopped"
             logger.info(f"  {status} - {name}")
     
     def update(self):
@@ -160,7 +160,7 @@ class ToolkitManager:
                 return False
             
             # Check if we're in a git repository
-            logger.info("\n📍 Checking if this is a Git repository...")
+            logger.info("\n📋 Checking if this is a Git repository...")
             result = subprocess.run(
                 ['git', 'rev-parse', '--git-dir'],
                 capture_output=True,
@@ -177,7 +177,7 @@ class ToolkitManager:
             logger.info("✅ Git repository detected")
             
             # Get current branch
-            logger.info("\n📋 Checking current branch...")
+            logger.info("\n📚 Checking current branch...")
             branch_result = subprocess.run(
                 ['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
                 capture_output=True,
