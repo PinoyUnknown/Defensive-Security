@@ -1,0 +1,270 @@
+# Enterprise Defensive Security Toolkit Configuration
+
+# System Configuration
+system:
+  # Monitoring interval in seconds (lower = more responsive, higher = less CPU)
+  monitor_interval: 5
+  
+  # Log retention period in days
+  log_retention: 30
+  
+  # Performance mode: 'low', 'medium', 'high'
+  performance_mode: high
+  
+  # Maximum log file size in MB
+  max_log_size: 100
+  
+  # Enable/disable debug mode
+  debug: false
+
+# Database Configuration
+database:
+  # Type: 'sqlite', 'postgresql'
+  type: sqlite
+  sqlite:
+    path: ./data/security.db
+  postgresql:
+    host: localhost
+    port: 5432
+    user: security_user
+    password: secure_password
+    database: defensive_security
+
+# System Monitor Configuration
+system_monitor:
+  # Enable process monitoring
+  process_monitoring: true
+  
+  # Enable network monitoring
+  network_monitoring: true
+  
+  # Enable file integrity monitoring
+  file_monitoring: true
+  
+  # Process monitoring interval (seconds)
+  process_interval: 10
+  
+  # Network monitoring interval (seconds)
+  network_interval: 5
+  
+  # Suspicious process keywords to watch
+  suspicious_keywords:
+    - 'cmd.exe'
+    - 'powershell'
+    - 'wmic'
+    - 'psexec'
+    - 'mimikatz'
+    - '/dev/null'
+    - 'nc'
+    - 'ncat'
+
+# Alert Configuration
+alerts:
+  # Enable/disable alerts
+  enabled: true
+  
+  # Alert thresholds
+  thresholds:
+    # CPU usage percentage
+    cpu_usage: 80
+    
+    # Memory usage percentage
+    memory_usage: 85
+    
+    # Disk usage percentage
+    disk_usage: 90
+    
+    # Number of network connections
+    network_connections: 1000
+    
+    # Failed login attempts
+    failed_logins: 5
+    
+    # File modifications per minute
+    file_modifications: 100
+  
+  # Alert channels
+  channels:
+    dashboard: true
+    email: false
+    webhook: false
+    syslog: false
+  
+  # Email configuration (if enabled)
+  email:
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    sender: security@company.com
+    recipients:
+      - admin@company.com
+    use_tls: true
+  
+  # Webhook configuration (if enabled)
+  webhook:
+    url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+    enabled: false
+
+# Log Analyzer Configuration
+log_analyzer:
+  # Enable log aggregation
+  enabled: true
+  
+  # Log sources to monitor
+  sources:
+    windows:
+      - 'System'
+      - 'Security'
+      - 'Application'
+    linux:
+      - '/var/log/auth.log'
+      - '/var/log/syslog'
+      - '/var/log/secure'
+  
+  # Pattern detection sensitivity (0-100)
+  sensitivity: 75
+  
+  # Enable anomaly detection
+  anomaly_detection: true
+  
+  # Anomaly detection models
+  models:
+    - 'isolation_forest'
+    - 'local_outlier_factor'
+    - 'one_class_svm'
+
+# Threat Intelligence Configuration
+threat_intelligence:
+  # Enable threat intelligence
+  enabled: true
+  
+  # Update interval (seconds) - 3600 = 1 hour
+  update_interval: 3600
+  
+  # Enable IP reputation lookups
+  ip_reputation: true
+  
+  # Enable domain filtering
+  domain_filtering: true
+  
+  # Enable IOC (Indicators of Compromise) detection
+  ioc_detection: true
+  
+  # Threat feeds
+  feeds:
+    - name: 'AlienVault OTX'
+      url: 'https://otx.alienvault.com/api/v1/pulses/subscribed'
+      enabled: true
+    
+    - name: 'Abuse.ch URL Haus'
+      url: 'https://urlhaus-api.abuse.ch/v1/urls/recent/'
+      enabled: true
+    
+    - name: 'MISP Feed'
+      url: 'https://misppriv.circl.lu/feed'
+      enabled: false
+  
+  # IP Reputation API
+  ip_reputation_api:
+    provider: 'abuseipdb'  # 'abuseipdb', 'virustotal', 'maxmind'
+    enabled: true
+    api_key: ''
+    cache_ttl: 86400  # 24 hours
+
+# Web Dashboard Configuration
+web_dashboard:
+  # Host and port
+  host: '0.0.0.0'
+  port: 8080
+  
+  # Debug mode
+  debug: false
+  
+  # Enable HTTPS
+  ssl_enabled: false
+  ssl_cert: './certs/cert.pem'
+  ssl_key: './certs/key.pem'
+  
+  # Session configuration
+  session_timeout: 3600  # seconds
+  
+  # Default credentials (CHANGE IMMEDIATELY)
+  default_admin:
+    username: 'admin'
+    password: 'admin123'
+  
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 100
+  
+  # CORS settings
+  cors:
+    enabled: true
+    allowed_origins:
+      - 'http://localhost:8080'
+      - 'http://127.0.0.1:8080'
+
+# Performance Optimization
+performance:
+  # Enable caching
+  caching_enabled: true
+  cache_ttl: 300  # seconds
+  
+  # Connection pooling
+  db_pool_size: 10
+  db_max_overflow: 20
+  
+  # Async processing
+  async_enabled: true
+  worker_threads: 4
+  
+  # Memory limits (MB)
+  max_memory_usage: 500
+  
+  # Batch processing size
+  batch_size: 1000
+
+# Logging Configuration
+logging:
+  level: 'INFO'  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  
+  # Log format
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  
+  # Log file rotation
+  rotation:
+    enabled: true
+    max_bytes: 10485760  # 10MB
+    backup_count: 5
+  
+  # Log directory
+  directory: './logs'
+
+# Security Configuration
+security:
+  # Enable JWT authentication
+  jwt_enabled: true
+  
+  # JWT secret key (CHANGE THIS)
+  jwt_secret: 'your-secret-key-change-this'
+  
+  # JWT expiration (seconds)
+  jwt_expiration: 86400  # 24 hours
+  
+  # Enable CSRF protection
+  csrf_protection: true
+  
+  # Password requirements
+  password_policy:
+    min_length: 12
+    require_uppercase: true
+    require_lowercase: true
+    require_numbers: true
+    require_special_chars: true
+  
+  # IP whitelist (empty = all)
+  whitelist:
+    enabled: false
+    ips:
+      - '192.168.1.0/24'
+      - '10.0.0.0/8'
